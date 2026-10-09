@@ -76,6 +76,27 @@
         //
         // ===================================
 
+        const updateGame = () => {
+            const head = snake[0];
+
+            // lasketaan uudeen pään sijainti:
+            const newHead = {
+                x: head.x + direction.x,
+                y: head.y + direction.y
+            };
+
+            // lisätään uusi pää snake-taulukon alkuun:
+            snake.unshift(newHead);
+
+            // poistetaan viimeinen segmentti snake-taulukosta:
+            snake.pop();
+
+            // piirretään peli uudelleen:
+            drawGame();
+        };
+        // kutsutaan updateGame-funktiota 200 millisekunnin välein:
+        const gameLoop = setInterval(updateGame, 200);
+        
     </script>
 
 </body>
