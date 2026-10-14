@@ -88,12 +88,29 @@
             // lisätään uusi pää snake-taulukon alkuun:
             snake.unshift(newHead);
 
-            // poistetaan viimeinen segmentti snake-taulukosta:
+            // tarkistetaan, osuuko pää ruokaan ja kasvatetaan käärmeen pituutta, jos se osuu ruokaan:
+            if (newHead.x === food.x && newHead.y === food.y) {
+                console.log("Ruoka syötiin!");
+                score++;
+
+                // luodaan uusi ruoka satunnaiseen paikkaan:
+                food = {
+                    // Math.random() antaa satunnaisen desimaaliluvun väliltä 0-1
+                    // kun tämä satunnainen luku kerrotaan * tileCount, satunnainen arvo on väliltä 0-19
+                    // Math.floor pyöristää alaspäin kokonaisluvuksi
+                    x: Math.floor(Math.random() * tileCount),
+                    y: Math.floor(Math.random() * tileCount)
+                }
+
+            } else {
+            // poistetaan viimeinen segmentti snake-taulukosta, jos käärme ei ole syönyt ruokaa:
             snake.pop();
+            }
 
             // piirretään peli uudelleen:
             drawGame();
         };
+        
         // kutsutaan updateGame-funktiota 200 millisekunnin välein:
         const gameLoop = setInterval(updateGame, 200);
         
