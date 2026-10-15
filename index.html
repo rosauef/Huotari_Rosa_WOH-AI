@@ -85,6 +85,27 @@
                 y: head.y + direction.y
             };
 
+            // tarkistetaan, osuuko käärmeen pää seinään tai itseensä:
+            if (newHead.x < 0 || 
+                newHead.x >= tileCount || 
+                newHead.y < 0  || 
+                newHead.y >= tileCount
+                ){
+                console.log("Game Over");
+                clearInterval(gameLoop);
+                return;
+                }
+            
+            const hitSelf = snake.some(segment => {
+                return segment.x === newHead.x && segment.y === newHead.y;
+            });
+
+            if (hitSelf) {
+                console.log("Game Over");
+                clearInterval(gameLoop);
+                return;
+            }
+
             // lisätään uusi pää snake-taulukon alkuun:
             snake.unshift(newHead);
 
