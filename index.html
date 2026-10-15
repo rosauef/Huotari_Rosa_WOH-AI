@@ -25,6 +25,7 @@
         const ctx = canvas.getContext("2d");
         const gridSize = 20;
         const tileCount = canvas.width / gridSize;
+        const info = document.getElementById("info");
 
         // ===== INITIAL STATE =====
         let snake = [
@@ -91,7 +92,7 @@
                 newHead.y < 0  || 
                 newHead.y >= tileCount
                 ){
-                console.log("Game Over");
+                info.textContent = "Game Over!";
                 clearInterval(gameLoop);
                 return;
                 }
@@ -101,7 +102,7 @@
             });
 
             if (hitSelf) {
-                console.log("Game Over");
+                info.textContent = "Game Over!";
                 clearInterval(gameLoop);
                 return;
             }
