@@ -17,6 +17,8 @@
     <canvas id="gameCanvas" width="400"
             height="400"></canvas>
     <p id="info"></p>
+    <!--lisätään nappi, jolla voidaan aloittaa uusi peli: -->
+    <button id="restartButton">Restart</button>
 
     <script>
         // ===== GAME SETUP =====
@@ -122,7 +124,7 @@
                     // Math.floor pyöristää alaspäin kokonaisluvuksi
                     x: Math.floor(Math.random() * tileCount),
                     y: Math.floor(Math.random() * tileCount)
-                }
+                };
 
             } else {
             // poistetaan viimeinen segmentti snake-taulukosta, jos käärme ei ole syönyt ruokaa:
@@ -134,7 +136,7 @@
         };
         
         // kutsutaan updateGame-funktiota 200 millisekunnin välein:
-        const gameLoop = setInterval(updateGame, 200);
+        let gameLoop = setInterval(updateGame, 200);
         
         // lisätään näppäimistön kuuntelija, joka tulostaa konsoliin painetun näppäimen:
         document.addEventListener("keydown", (event) => {
@@ -151,6 +153,28 @@
                 direction = { x: 1, y: 0 };
             }
         });
+
+        // luodaan funktio, joka aloittaa uuden pelin:
+        const startNewGame = () => {
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 } 
+            ];
+            direction = { x: 1, y: 0 };
+            food = { x: 15, y: 15 };
+            score = 0;
+            info.textContent = "";
+            drawGame();
+            gameLoop = setInterval(updateGame, 200);
+        };
+
+        // yhdistetään restartButton-nappiin tapahtumankuuntelija, joka aloittaa uuden pelin:
+        const restartButton = document.getElementById("restartButton");
+        restartButton.addEventListener("click", startNewGame);
+
+        
+
     </script>
 
 </body>
