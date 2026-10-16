@@ -14,6 +14,7 @@
 <body>
 
     <h1>Snake</h1>
+    <p id="scoreInfo">Score: 0</p>
     <canvas id="gameCanvas" width="400"
             height="400"></canvas>
     <p id="info"></p>
@@ -28,6 +29,7 @@
         const gridSize = 20;
         const tileCount = canvas.width / gridSize;
         const info = document.getElementById("info");
+        const scoreInfo = document.getElementById("scoreInfo");
 
         // ===== INITIAL STATE =====
         let snake = [
@@ -116,6 +118,7 @@
             if (newHead.x === food.x && newHead.y === food.y) {
                 console.log("Ruoka syötiin!");
                 score++;
+                scoreInfo.textContent = "Score: " + score;
 
                 // luodaan uusi ruoka satunnaiseen paikkaan:
                 food = {
@@ -164,6 +167,7 @@
             direction = { x: 1, y: 0 };
             food = { x: 15, y: 15 };
             score = 0;
+            scoreInfo.textContent = "Score: " + score;
             info.textContent = "";
             drawGame();
             gameLoop = setInterval(updateGame, 200);
@@ -171,9 +175,7 @@
 
         // yhdistetään restartButton-nappiin tapahtumankuuntelija, joka aloittaa uuden pelin:
         const restartButton = document.getElementById("restartButton");
-        restartButton.addEventListener("click", startNewGame);
-
-        
+        restartButton.addEventListener("click", startNewGame);        
 
     </script>
 
